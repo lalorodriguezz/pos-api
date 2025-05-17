@@ -24,14 +24,19 @@ class Compra extends Model
         'moneda',
         'tipo_cambio',
         'forma_pago',
-        
     ];
 
+    /**
+     * Relación con el modelo Proveedor.
+     */
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class);
     }
 
+    /**
+     * Relación con el modelo Producto.
+     */
     public function producto()
     {
         return $this->belongsTo(Producto::class);

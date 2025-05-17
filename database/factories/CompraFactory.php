@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Proveedor;
+use App\Models\Producto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Compra>
- */
 class CompraFactory extends Factory
 {
     /**
@@ -15,8 +14,8 @@ class CompraFactory extends Factory
     public function definition(): array
     {
         return [
-            'proveedor_id' => \App\Models\Proveedor::inRandomOrder()->first()->id ?? \App\Models\Proveedor::factory(),
-            'producto_id' => \App\Models\Producto::inRandomOrder()->first()->id ?? \App\Models\Producto::factory(),
+            'proveedor_id' => Proveedor::factory(),
+            'producto_id' => Producto::factory(),
             'cantidad' => $this->faker->numberBetween(1, 10),
             'precio_unitario' => $this->faker->randomFloat(2, 1, 100),
             'total' => fn(array $attributes) => $attributes['cantidad'] * $attributes['precio_unitario'],

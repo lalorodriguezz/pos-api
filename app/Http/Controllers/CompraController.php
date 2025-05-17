@@ -16,7 +16,7 @@ class CompraController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'proveedor_id' => 'required|exists:proveedores,id',
+            'proveedor_id' => 'required|exists:proveedor,id',
             'producto_id' => 'required|exists:productos,id',
             'cantidad' => 'required|integer|min:1',
             'precio_unitario' => 'required|numeric|min:0',
@@ -33,7 +33,6 @@ class CompraController extends Controller
         ]);
 
         $compra = Compra::create($request->all());
-
         return response()->json($compra, 201);
     }
 
@@ -46,7 +45,7 @@ class CompraController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'proveedor_id' => 'sometimes|exists:proveedores,id',
+            'proveedor_id' => 'sometimes|exists:proveedor,id',
             'producto_id' => 'sometimes|exists:productos,id',
             'cantidad' => 'sometimes|integer|min:1',
             'precio_unitario' => 'sometimes|numeric|min:0',
@@ -64,15 +63,13 @@ class CompraController extends Controller
 
         $compra = Compra::findOrFail($id);
         $compra->update($request->all());
-
-        return response()->json($compra, 200);
+        return response()->json($compra, 201);
     }
 
     public function destroy(string $id)
     {
         $compra = Compra::findOrFail($id);
         $compra->delete();
-
         return response()->json(null, 204);
     }
 }

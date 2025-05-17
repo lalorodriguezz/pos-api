@@ -11,25 +11,28 @@ class Venta extends Model
 
     protected $fillable = [
         'cliente_id',
-        'producto_id',
-        'cantidad',
-        'precio_unitario',
         'total',
         'fecha_venta',
         'metodo_pago',
         'estado',
-        'observaciones'
+        'observaciones',
     ];
 
-    // Relación con el modelo Cliente
+    /**
+     * Relación muchos a uno con el modelo Cliente.
+     */
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
 
-    // También deberías agregar la relación con Producto si la necesitas
-    public function producto()
+    /**
+     * Relación muchos a muchos con el modelo Producto a través de la tabla pivote producto_venta.
+     */
+    public function productos()
     {
-        return $this->belongsTo(Producto::class);
+        return $this->belongsToMany(Producto::class, 'producto_venta')
+                    ->withPivot('cantidad', 'precio_unitario') // Campos adicionales de la tabla pivote
+                    ->withTimestamps(); // Agrega created_at y updated_at
     }
 }

@@ -9,18 +9,15 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class ProveedorFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = \App\Models\Proveedor::class;
+
     public function definition(): array
     {
         return [
-            'nombre' => fake()->company(),
-            'email' => fake()->unique()->safeEmail(),
-            'telefono' => fake()->phoneNumber(),
-            'contacto' => fake()->name(),
+            'nombre' => $this->faker->company(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'telefono' => $this->faker->phoneNumber(),
+            'contacto' => $this->faker->name(),
         ];
     }
 }

@@ -14,14 +14,11 @@ return new class extends Migration
         Schema::create('ventas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
-            $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade');
-            $table->integer('cantidad');
-            $table->decimal('precio_unitario', 10, 2);
             $table->decimal('total', 10, 2);
             $table->date('fecha_venta');
             $table->string('metodo_pago')->default('efectivo');
-            $table->string('estado')->default('pendiente'); // pendiente, completada, cancelada
-            $table->string('observaciones')->nullable(); // No requerido
+            $table->string('estado')->default('pendiente');
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }
